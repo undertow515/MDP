@@ -1,0 +1,107 @@
+# --- Experiment configurations --------------------------------------------------------------------
+
+# experiment name, used as folder name
+experiment_name: first_experiment
+
+# place to store run directory (if empty runs are stored in code_dir/runs/)
+run_dir: ./runs/first_experiment2
+
+
+# training, validation and test time periods (format = 'yyyy-mm-dd')
+train_start_date: '2002-01-01'
+train_end_date: '2015-12-31'
+validation_start_date: '2016-01-01'
+validation_end_date: '2022-12-31'
+test_start_date: '2016-01-01'
+test_end_date: '2022-12-31'
+
+
+# fixed seed, leave empty to use a random seed
+seed: 2222
+
+# which GPU (id) to use [in format of cuda:0, cuda:1 etc, or cpu or None]
+device: "cuda:0"
+
+# --- Validation configuration ---------------------------------------------------------------------
+# specify which metrics to calculate during validation
+metrics:
+- NSE
+- KGE
+- RMSE
+# --- Model configuration --------------------------------------------------------------------------
+
+model: lstm
+# --- Transformer Model configuration --------------------------------------------------------------------------
+dropout_rate: 0.3
+d_model: 64
+n_heads: 4
+n_encoder_layers: 4
+n_decoder_layers: 4
+d_ff: 256
+d_head: 16
+embedding_mode: "linear"
+
+
+# --- LSTM Model configuration --------------------------------------------------------------------------
+
+lstm_hidden_size: 128
+dropout_lstm: 0.3
+
+# --- Training configuration -----------------------------------------------------------------------
+
+# specify optimizer [Adam]
+optimizer: Adam
+
+# specify loss [MSE]
+loss: MSE
+
+# specify l2 regularization
+l2: 0.0001
+
+# specify learning rates to use starting at specific epochs (0 is the initial learning rate)
+learning_rate: 0.0005
+
+
+# Mini-batch size
+batch_size: 256
+
+# Number of training epochs
+epochs: 500
+
+
+# Number of time steps to predict
+pred_length: 7
+
+# Length of the input sequence
+past_length: 28
+
+tgt_size: 1
+
+
+# --- Data configurations --------------------------------------------------------------------------
+
+# change data path
+dynamic_features:
+- rf
+- tmax
+- tmin
+
+static_features: 
+- "p_mean"
+- "frac_snow"
+- "high_prec_freq"
+- "high_prec_dur"
+- "low_prec_freq"
+- "low_prec_dur"
+- "elev_mean"
+- "slope_mean"
+- "area_gages2"
+- "frac_forest"
+
+dynamic_paths: 
+- ./data/dynamic/1003.nc
+- ./data/dynamic/1006.nc
+- ./data/dynamic/1012.nc
+static_path: ./data/static/catchment_attributes.csv
+
+
