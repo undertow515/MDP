@@ -4,7 +4,7 @@ from datasets import dataloader
 from config import reader
 from pathlib import Path
 from model import transformer, lstm_msv_s2s
-from utils import evalmetrices
+from utils import evalmetrices, clearepoch
 from tqdm import tqdm
 import numpy as np
 import train
@@ -79,5 +79,7 @@ paths = glob.glob("./config/trainconfig/lstm/*/**.yml")
 if __name__ == "__main__":
     ## running the code
     for path in paths:
+        print(f"running {path}")
         run(path)
+        clearepoch.clearepoch(reader.Config(path).run_dir)
 

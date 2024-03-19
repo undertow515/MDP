@@ -81,5 +81,3 @@ if __name__ == "__main__":
     for path in paths:
         print(f"running {path}")
         run(path)
-        clearepoch.clearepoch(reader.Config(path).run_dir)
-
